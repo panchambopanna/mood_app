@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBq6PIgRO4igPb2lJb2FCIMRi49cjFaCog",
-  authDomain: "moodly-9eb88.firebaseapp.com",
-  projectId: "moodly-9eb88",
-  storageBucket: "moodly-9eb88.firebasestorage.app",
-  messagingSenderId: "772881891970",
-  appId: "1:772881891970:web:3236f0d93a72ff6ab5aa9b"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID
 };
 
 // Initialize Firebase
