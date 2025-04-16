@@ -23,3 +23,6 @@ export const demoData:Record<string, number> = {
     "15": 2, "16": 4, "17": 1, "18": 3, "19": 5,
     "20": 2, "21": 4, "22": 1, "23": 3, "24": 5,
 }
+
+export {months} from './constants'
+export {daysList} from './constants'

@@ -1,22 +1,24 @@
+'use client'
+
 import Dashboad from '@/components/Dashboad';
+import Loading from '@/components/Loading';
 import Login from '@/components/Login';
 import Main from '@/components/Main';
-import { Metadata } from 'next';
+import { useAuth } from '@/context/AuthContext';
 import React from 'react'
 
-export const metadata: Metadata = {
-    title: "Moodly · Dashboard",
-  };
 
-
-const page = () => {
-
-    const isAuthenticated = true;
+const Page = () => {
+    const {currentUser, loading} = useAuth()
 
     let children = <Login />
 
+    if(loading){
+        children = <Loading />
 
-    if (isAuthenticated) {
+    }
+
+    if (currentUser) {
         children = <Dashboad />
     }
 
@@ -27,4 +29,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

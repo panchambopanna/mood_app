@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import {Fugaz_One, Open_Sans} from "next/font/google";
 import Link from "next/link";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
   title: "Moodly",
@@ -33,11 +34,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <AuthProvider>
       <body className={"w-full max-w-[1200px] mx-auto text-sm sm:text-base min-h-screen flex flex-col text-slate-700 " + openSans.className}>
         {header}
         {children}
         {footer}
       </body>
+      </AuthProvider>
     </html>
   );
 }

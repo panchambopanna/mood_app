@@ -1,19 +1,28 @@
-import React from 'react'
-import {baseRating, gradients, demoData} from '@/utils'
+'use client'
 
-const months = { 'January': 'Jan', 'February': 'Feb', 'March': 'Mar', 'April': 'Apr', 'May': 'May', 'June': 'Jun', 'July': 'Jul', 'August': 'Aug', 'September': 'Sept', 'October': 'Oct', 'November': 'Nov', 'December': 'Dec' }
- const now = new Date();
+import React, { useState } from 'react'
+import {baseRating, gradients, months, daysList} from '@/utils'
 
- const daysList = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']; 
+
 
  type Props = {
-    demo?:boolean
+    demo?:boolean,
+    data:Record<string, number> | null,
  }
 
-const Calendar = ({demo}:Props) => {
+const Calendar = ({demo, data}:Props) => {
+    const now = new Date()
+    const currMonth = now.getMonth()
+    const [month, setMonth] = useState(Object.keys(months)[currMonth])
+    const [year, setYear] = useState(now.getFullYear())
 
-    const year = 2025
-    const month = 'April'
+    
+      const handleMonthChange = ():void => {
+             
+              // increment or decrement the month
+              // if we hit the bounds of month then increment or decrement the year
+      
+          }
 
     const monthNow = new Date(year, Object.keys(months).indexOf(month), 1)
     const firstDayOfMonth = monthNow.getDay()
@@ -44,7 +53,7 @@ const Calendar = ({demo}:Props) => {
                         } 
 
                         
-                        const color = demo ? gradients.rose[baseRating[dayIndex]] : dayIndex in demoData ? gradients.rose[demoData[dayIndex]] : 'white';
+                        const color = demo ? gradients.rose[baseRating[dayIndex]] : data && dayIndex in data ? gradients.rose[data[dayIndex]] : 'white';
 
                         return (
                         <div style={{background: color}} className={'text-xs sm:text-sm border border-solid p-2 flex items-center gap-2 justify-between rounded-lg ' 
