@@ -8,9 +8,10 @@ type Props = {
   dark?: boolean;
   full?: boolean;
   type?: 'submit'| 'button'| 'reset';
+  clickHandler?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-const Button = ({ text, dark, full, type }: Props) => {
+const Button = ({ text, dark, full, type, clickHandler }: Props) => {
   return (
     <button
       className={
@@ -19,6 +20,7 @@ const Button = ({ text, dark, full, type }: Props) => {
         (full ? "w-full" : "")
       }
       type={type}
+      onClick={clickHandler}
     >
       <p className={"px-6 sm:px-10 whitespace-nowrap py-2 sm:py-3 " + fugaz.className}>{text}</p>
     </button>

@@ -1,7 +1,7 @@
 'use client'
 
 import { Fugaz_One } from "next/font/google";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Calendar from "./Calendar";
 import { useAuth } from "@/context/AuthContext";
 import { UserData } from "@/utils/types";
@@ -11,10 +11,32 @@ import { db } from "@/firebase";
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: "400" });
 
 const Dashboad = () => {
+  
+    const {currentUser, userDataObj, setUserDataObj} = useAuth() as {
+      currentUser: { uid: string } | null;
+      userDataObj: Record<number, Record<number, Record<number, number>>>;
+      setUserDataObj: React.Dispatch<React.SetStateAction<Record<number, Record<number, Record<number, number>>>>>;
+    };
+
+  function countValues(){
+    let totalNumberOfDays = 0;
+    let sumMoods = 0;
+    for (const year in userDataObj) {
+      for (const month in userDataObj[Number(year)]) {
+        for (const day in userDataObj[year][month]) {
+          totalNumberOfDays++;
+          sumMoods += userDataObj[year][month][day];
+        }
+      }
+    }
+    return {num_days: totalNumberOfDays, average_mood: Math.floor(sumMoods/totalNumberOfDays)}
+  }
+
+  const now = new Date()
+
   const statuses: Record<string, string | number> = {
-    num_days: 14,
-    time_remiaining: "13:22:34",
-    date: new Date().toDateString(),
+    ...countValues(),
+    time_remiaining: `${23-now.getHours()}H ${59-now.getMinutes()}M`,
   };
 
   const moods: Record<string, string> = {
@@ -24,12 +46,6 @@ const Dashboad = () => {
     "Happy": "😊",
     "Excited": "😄",
   };
-
-  const {currentUser, userDataObj, setUserDataObj} = useAuth();
-
-  //useQeury to fetch userDataobj from the db directly here.
-
-  const [data, setData] = useState<Record<string, number> | null>(null);
 
   const handleSetMood = async (mood:number): Promise<void> => {
     // mood can be set for current day only
@@ -51,8 +67,6 @@ const Dashboad = () => {
 
     newData[year][month][day] = mood;
 
-    setData(newData[year][month]);
-
     setUserDataObj(newData);
 
     // set data to firebase
@@ -60,8 +74,8 @@ const Dashboad = () => {
     if (!currentUser) return;
 
     const docRef = doc(db, "users", currentUser?.uid);
-    const res = await setDoc(docRef, newData, { merge: true });
-    console.log(res);
+    await setDoc(docRef, newData, { merge: true });
+    
     } catch (error) {
       console.log(error);
     }
@@ -88,7 +102,7 @@ const Dashboad = () => {
               {status.replaceAll("_", " ")}
             </p>
             <p className={"text-base sm:text-lg truncate " + fugaz.className}>
-              {statuses[status]}
+              {statuses[status]} {status === 'num_days' ? '🔥' : ''}
             </p>
           </div>
         ))}
@@ -121,7 +135,7 @@ const Dashboad = () => {
           </button>
         ))}
       </div>
-      <Calendar data={data}/>
+      <Calendar data={userDataObj}/>
     </div>
   );
 };

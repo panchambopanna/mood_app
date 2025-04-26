@@ -3,6 +3,7 @@ import "./globals.css";
 import {Fugaz_One, Open_Sans} from "next/font/google";
 import Link from "next/link";
 import { AuthProvider } from "@/context/AuthContext";
+import Logout from "@/components/Logout";
 
 export const metadata: Metadata = {
   title: "Moodly",
@@ -17,7 +18,7 @@ const header = (
     <Link href='/'>
     <h1 className={ 'text-base sm:text-4xl textGradient ' + fugaz.className}>Moodly</h1>
     </Link>
-    <div className="flex items-center justify-between">PLACEHOLDER</div>
+    <Logout />
   </header>
 )
 
@@ -34,6 +35,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
+      </head>
       <AuthProvider>
       <body className={"w-full max-w-[1200px] mx-auto text-sm sm:text-base min-h-screen flex flex-col text-slate-700 " + openSans.className}>
         {header}

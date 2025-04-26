@@ -1,1 +1,1 @@
-export type UserData = Record<number,Record<string,Record<string, number>>>;
+export type UserData = Record<number,Record<number,Record<number, number>>>;
