@@ -47,22 +47,20 @@ export function AuthProvider({ children }: {children: React.ReactNode}) {
                 setLoading(true)
                 setCurrentUser(user)
                 if (!user) {
-                    console.log('No User Found')
+                    console.error('No User Found')
                     return
                 }
 
                 // if user exists, fetch data from firestore database
-                console.log('Fetching User Data')
                 const docRef = doc(db, 'users', user.uid)
                 const docSnap = await getDoc(docRef)
                 let firebaseData= {}
                 if (docSnap.exists()) {
-                    console.log('Found User Data')
                     firebaseData = docSnap.data()
                 }
                 setUserDataObj(firebaseData)
             } catch (err) {
-                console.log('Error fetching user data',err)
+                console.error('Error fetching user data',err)
             } finally {
                 setLoading(false)
             }

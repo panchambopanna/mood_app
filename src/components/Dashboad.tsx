@@ -77,7 +77,7 @@ const Dashboad = () => {
     await setDoc(docRef, newData, { merge: true });
     
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     
 

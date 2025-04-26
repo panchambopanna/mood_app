@@ -8,7 +8,6 @@ const fugaz = Fugaz_One({ subsets: ["latin"], weight: "400" });
 
 const Login = () => {
   const [error, setError] = React.useState<Record<string, string> | null>(null);
-  console.log(error)
   const [isRegister, setIsRegister] = React.useState<boolean>(false);
 
   const {signup, login} = useAuth();

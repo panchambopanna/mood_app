@@ -16,12 +16,6 @@ const Calendar = ({ demo, data }: Props) => {
   const now = new Date();
   const currMonth = now.getMonth();
   const [month, setMonth] = useState(Object.keys(months)[currMonth]);
-  console.log(
-    month,
-    "month",
-    Object.keys(months),
-    Object.keys(months).indexOf(month)
-  );
   const [year, setYear] = useState(now.getFullYear());
 
   const numericMonth = Object.keys(months).indexOf(month);
@@ -31,7 +25,6 @@ const Calendar = ({ demo, data }: Props) => {
   const handleMonthChange = (val: number): void => {
     // increment or decrement the month
     // if we hit the bounds of month then increment or decrement the year
-    console.log(numericMonth);
     if (numericMonth + val < 0) {
       setYear((prev) => prev - 1);
       setMonth(monthsArr[monthsArr.length - 1]);
