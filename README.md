@@ -2,6 +2,14 @@
 
 Checkout the app by clicking this [link](https://lively-druid-0ca3d7.netlify.app/)
 
+## Preview
+
+![image](https://github.com/user-attachments/assets/059b4941-3a51-4881-bf38-26cd00dd1ee3)
+
+![image](https://github.com/user-attachments/assets/faf1b38e-d436-4bd6-8a61-7176e788e2cc)
+
+
+
 ``
 Test user
 username: testuser@moodly.com
